@@ -10,7 +10,7 @@ module.exports = () => {
 	// Because the developers mustn't have been aware memory leaks are a thing
 	cron.schedule(`0 */${config.restartEveryXHours} * * *`, () => {
 		log(`Performing regular ${config.restartEveryXHours} hour restart`);
-		runRestartOnServer(true);
+		runRestartOnServer();
 	});
 
 	// The game saves every X minutes (*/X * * * *)
