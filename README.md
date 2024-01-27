@@ -83,7 +83,7 @@ Complete Save
 Broadcasted: Saved!
 ```
 
-**Don't use the panel like this, please put it behind an Apache or Nginx proxy with a TLS certificate.**
+**Don't use the panel like this, please put it behind an Apache or Nginx proxy with a TLS certificate. Additionally, you should likely be using UFW or another tool already!**
 
 ## Config file explained
 
@@ -106,3 +106,59 @@ Broadcasted: Saved!
 }
 ```
 
+## Apache Web Proxy Guide
+This is probably not needed for this README, but I might as well put it.
+
+This will let you use HTTPS with the web panel, as long as you own a domain for it.
+
+```
+sudo apt update
+sudo apt install apache2 snapd
+
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot certonly --apache # Follow this through with your domain
+
+sudo a2enmod proxy
+sudo a2enmod proxy_http
+sudo a2enmod ssl
+```
+
+```
+nano /etc/apache2/sites-available/palworld-server-helper.conf
+```
+
+Put this in it, changing whats needed.
+
+```
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+
+        ServerAdmin webmaster@localhost
+
+        ProxyRequests Off
+        # Make sure the port matches your configuration
+        ProxyPass / http://localhost:8081/ 
+        ProxyPassReverse / http://localhost:8081/ 
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        ServerName [YOUR DOMAIN]
+        # Make sure the domain matches your configuration
+        SSLCertificateFile /etc/letsencrypt/live/[YOUR DOMAIN]/fullchain.pem 
+        SSLCertificateKeyFile /etc/letsencrypt/live/[YOUR DOMAIN]/privkey.pem
+        Include /etc/letsencrypt/options-ssl-apache.conf
+</VirtualHost>
+</IfModule>
+```
+
+```
+cd /etc/apache2/sites-available
+a2ensite palworld-server-helper.conf
+service apache2 restart
+```
+
+It should be working now when you go to your domain, securely.
+
+All that is left is making the Node script run as a service.
