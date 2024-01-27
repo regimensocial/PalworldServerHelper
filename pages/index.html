@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    I recommend you have the console up whilst you're doing this.
+    <ul>
+        <li>
+            <button data-page="/restart">
+                Restart Server
+            </button>
+        </li>
+        <li>
+            <button data-page="/save">
+                Save Server
+            </button>
+        </li>
+        <li>
+            <button data-page="/backup">
+                Backup Server
+            </button>
+        </li>
+        <li>
+            <button data-page="/close">
+                Close Server
+            </button>
+        </li>
+    </ul>
+    <div id="output">
+
+    </div>
+
+    <script>
+        const output = document.getElementById("output");
+        const buttons = document.querySelectorAll("button");
+        const params = window.location.search.split("?")[1];
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                const page = button.getAttribute("data-page");
+                fetch(page + "?" + params)
+                    .then(res => res.text())
+                    .then(text => {
+                        output.innerHTML = text;
+                    })
+                    .catch(err => {
+                        output.innerHTML = err;
+                    })
+            })
+        })
+    </script>
+</body>
+</html>

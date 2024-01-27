@@ -1,0 +1,16 @@
+{
+    "arrconLocation": "./ARRCON",
+    "serverLocation": "/home/steam/.steam/steam/steamapps/common/PalServer/Pal/Binaries/Linux/PalServer-Linux-Test",
+    "serverArguments": "-useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS",
+    "port": 8081,
+    "rconPort": 25575,
+    "adminPassword": "password",
+    "serverPassword": "password",
+    "maxMemoryUsageInBytesBeforeRestart": 14000000000,
+    "saveEveryXMinutes": 15,
+    "restartEveryXHours": 6,
+    "backupEveryXHours": 12,
+    "backupWhatLocation": "/home/steam/.steam/steam/steamapps/common/PalServer/Pal/Saved",
+    "backupsLocation": "./backups",
+    "maxBackupsBeforeDeletingOld": 4
+}
