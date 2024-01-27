@@ -80,6 +80,10 @@ function startServer() {
 			setTimeout(() => {
 				isServerReady = true;
 				log("Server is likely ready (or will be in a moment)!");
+
+				setTimeout(() => {
+					runCommandOnServer("broadcast \"Online\"");
+				}, 2000);
 			}, 10000);
 		}
 	});
