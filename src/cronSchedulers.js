@@ -2,7 +2,7 @@ const cron = require("node-cron");
 const pidusage = require("pidusage");
 const config = require("../config.json");
 const { log, error } = require("./loggers");
-const { bashProcess, runCommandOnServer, runSaveCommandOnServer, backupServer, runRestartOnServer } = require("./server");
+const { bashProcess, runSaveCommandOnServer, backupServer, runRestartOnServer } = require("./server");
 
 module.exports = () => {
 
@@ -10,7 +10,7 @@ module.exports = () => {
 	// Because the developers mustn't have been aware memory leaks are a thing
 	cron.schedule(`0 */${config.restartEveryXHours} * * *`, () => {
 		log(`Performing regular ${config.restartEveryXHours} hour restart`);
-		runCommandOnServer();
+		runRestartOnServer(true);
 	});
 
 	// The game saves every X minutes (*/X * * * *)
