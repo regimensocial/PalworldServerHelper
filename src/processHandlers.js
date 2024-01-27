@@ -22,14 +22,5 @@ module.exports = () => {
 		process.exit();
 	});
 
-	process.on("SIGKILL", () => {
-		log("SIGKILL. Stopping the script...");
-
-		if (bashProcess) bashProcess.kill("SIGTERM");
-
-		setIsServerReady(false);
-		process.exit();
-	});
-
 	process.stdin.resume();
 };
