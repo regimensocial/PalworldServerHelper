@@ -149,6 +149,16 @@ function backupServer() {
 	});
 }
 
+function closeServer() {
+	shouldLetServerClose = true;
+
+	runCommandOnServer("broadcast \"Saving...\"");
+
+	runCommandOnServer("save", () => {
+		runCommandOnServer("doExit");
+	});
+}
+
 module.exports = {
 	getIsServerReady: () => isServerReady,
 	setIsServerReady: (value) => isServerReady = value,
@@ -159,5 +169,6 @@ module.exports = {
 	runCommandOnServer,
 	runSaveCommandOnServer,
 	runRestartOnServer,
-	backupServer
+	backupServer,
+	closeServer
 };
