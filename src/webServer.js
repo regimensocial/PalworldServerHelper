@@ -6,8 +6,8 @@ const { log } = require("./loggers");
 const app = express();
 
 module.exports = () => {
-	const noKeyPage = fs.readFileSync("./pages/noKey.html", "utf8");
-	const keyPage = fs.readFileSync("./pages/index.html", "utf8");
+	const noKeyPage = fs.readFileSync("../pages/noKey.html", "utf8");
+	const keyPage = fs.readFileSync("../pages/index.html", "utf8");
 
 	app.use((req, res, next) => {
 		if (req.query && req.query.key && req.query.key === config.serverPassword) {
