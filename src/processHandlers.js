@@ -31,13 +31,5 @@ module.exports = () => {
 		process.exit();
 	});
 
-	process.on("uncaughtException", () => {
-		bashProcess && bashProcess.kill("SIGTERM");
-
-		if (bashProcess && getIsServerReady()) closeServer();
-
-		process.exit();
-	});
-
 	process.stdin.resume();
 };
