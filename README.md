@@ -27,7 +27,7 @@ cd /home/steam # Or wherever you'd like
 
 Clone this repo.
 ```
-sudo apt install zip # If needed
+sudo apt install git # If needed
 git clone https://github.com/regimensocial/PalworldServerHelper.git
 cd PalworldServerHelper
 ```
