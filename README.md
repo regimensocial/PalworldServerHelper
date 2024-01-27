@@ -7,6 +7,8 @@ This follows on from before "Setup a service to automize the management of the s
 
 This will run the instance of Palworld Server for you, through Node.js. It works on Debian 12, untested on others.
 
+## Guide
+
 Change `RCONEnabled=False` to `RCONEnabled=True` in your config, and set an admin password if not already. Make sure to remember this!
 ```
 nano ~/.steam/steam/steamapps/common/PalServer/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini # Change these here
@@ -30,11 +32,12 @@ git clone https://github.com/regimensocial/PalworldServerHelper.git
 cd PalworldServerHelper
 ```
 
-Download ARRCON and unzip it.
+Download ARRCON, unzip it, and make it executable.
 ```
 sudo apt install zip unzip # If needed
 wget https://github.com/radj307/ARRCON/releases/download/3.3.7/ARRCON-3.3.7-Linux.zip
 rm ARRCON-3.3.7-Linux.zip
+chmod +x ARRCON
 ```
 
 Download all the NPM packages needed.
@@ -52,8 +55,9 @@ nano config.json
     "serverPassword": "password", # You can choose to make this the same, or different. It will be used to access the web panel
 ```
 
-At this point, running it will work. If not, your config might need adjusting depending on how much you've deviated from A1RM4X's tutorial. Config file is explained at the end.
+At this point, running it will work. If not, your config might need adjusting depending on how much you've deviated from A1RM4X's tutorial. Config file is explained at the end. Additionally, if you've done some steps with root, you might have issues with permissions. If you're using Debian and following this tutorial, you probably know how to sort those out (`chown -R steam:steam /home/steam/PalworldServerHelper`).
 ```
+sudo -u steam bash # Make sure you're on the right user
 node index.js # Run it like so for now
 ```
 
@@ -79,9 +83,9 @@ Complete Save
 Broadcasted: Saved!
 ```
 
-Don't use the panel like this, please put it behind an Apache or Nginx proxy with a TLS certificate.
+**Don't use the panel like this, please put it behind an Apache or Nginx proxy with a TLS certificate.**
 
-Config file explained in depth
+## Config file explained
 
 ```
 {
