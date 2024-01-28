@@ -82,7 +82,12 @@ function startServer() {
 				log("Server is likely ready (or will be in a moment)!");
 
 				setTimeout(() => {
-					runCommandOnServer("broadcast \"Online\"");
+					runCommandOnServer("broadcast \"Online\"", null, () => {
+						log("RCON is not working! Server will restart now!");
+						isServerReady = false;
+						shouldLetServerClose = false;
+						bashProcess.kill("SIGTERM");
+					});
 				}, 2000);
 			}, 10000);
 		}
