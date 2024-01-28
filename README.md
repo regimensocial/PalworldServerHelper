@@ -3,7 +3,7 @@ Palworld's server is a half baked mess which I don't personally trust to save pr
 
 This is a little script to force an autosave, autobackup, and autorestart.
 
-This follows on from before "Setup a service to automize the management of the server" of [this](https://github.com/A1RM4X/HowTo-Palworld).
+This follows on from before "Setup a service to automize the management of the server" of [this](https://github.com/A1RM4X/HowTo-Palworld). Thank you to A1RM4X for the original guide.
 
 This will run the instance of Palworld Server for you, through Node.js. It works on Debian 12, untested on others.
 
@@ -162,3 +162,33 @@ service apache2 restart
 It should be working now when you go to your domain, securely.
 
 All that is left is making the Node script run as a service.
+
+```
+nano /etc/systemd/system/palworld.service # You'll use this instead of what A1RM4X provides
+```
+
+Then put this in it... Your `node` location could be different, check using `which node`.
+```
+[Unit]
+Description=Palworld Server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=steam
+Group=steam
+ExecStart=/usr/bin/node /home/steam/PalworldServerHelper/index.js
+WorkingDirectory=/home/steam/PalworldServerHelper
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then run it using
+```
+systemctl enable palworld.service
+systemctl daemon-reload
+systemctl start palworld.service
+```
