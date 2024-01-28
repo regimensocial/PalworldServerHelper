@@ -16,15 +16,13 @@ function runCommandOnServer(command, successCallback, errorCallback) {
 
 	exec(`echo "${command}" | ${path.resolve(config.arrconLocation)} -H 127.0.0.1 -P ${config.rconPort} -p ${config.adminPassword}`, function (err, stdout) {
 		// JavaScript is so awesome
-		err && error(err);
-		err && errorCallback && errorCallback();
-		stdout && log(stdout);
-		stdout && successCallback && successCallback();
-
 		if (err) {
-			error("Something went wrong with RCON", err);
+			error("Something went wrong with RCON");
+			error(err);
 		}
-
+		if (err && errorCallback) errorCallback();
+		if (stdout) log(stdout);
+		if (stdout && successCallback) successCallback();
 	});
 
 }
