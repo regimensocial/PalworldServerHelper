@@ -36,6 +36,7 @@ Download ARRCON, unzip it, and make it executable.
 ```
 sudo apt install zip unzip # If needed
 wget https://github.com/radj307/ARRCON/releases/download/3.3.7/ARRCON-3.3.7-Linux.zip
+unzip ./ARRCON-3.3.7-Linux.zip
 rm ARRCON-3.3.7-Linux.zip
 chmod +x ARRCON
 ```
